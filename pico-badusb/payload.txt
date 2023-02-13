@@ -1,0 +1,12 @@
+REM This is an example of a payload
+DELAY 1000
+LED ON
+HOTKEY GUI R
+DELAY 500
+STRING cmd.exe
+PRESS ENTER
+DELAY 500
+STRING start https://youtu.be/dQw4w9WgXcQ
+PRESS ENTER
+DELAY 1000
+LED OFF
