@@ -1,4 +1,4 @@
-REM This is an example of a payload
+REM This is an example of a payload file
 DELAY 1000
 LED ON
 HOTKEY GUI R
