@@ -25,6 +25,7 @@ drag and drop the file ```pico-badusb.uf2```, and then wait a moment. If the boa
 necessary to [reset](https://github.com/kacperbartocha/pico-badusb#reset) the Flash memory.
 
 ### Installation in steps:
+0. [Reset Flash](https://github.com/kacperbartocha/pico-badusb#reset) memory if you used the device before
 1. Hold down the ```BOOTSEL``` button while connecting the ```micro USB``` cable
 2. Drag and drop the file ```pico-badusb.uf2``` onto the media
 3. Wait for the media to be remounted, which will contain the files:
