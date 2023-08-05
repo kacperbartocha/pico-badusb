@@ -1,7 +1,7 @@
 # Raspberry Pi Pico BadUSB
 
 Pico BadUSB is a simple implementation of the [BadUSB](https://en.wikipedia.org/wiki/BadUSB) idea. The features it has
-will certainly prove themselves in most of more and less demanding tasks. What characterizes Pico BadUSB is a
+will certainly prove themselves in most of less and more demanding tasks. What characterizes Pico BadUSB is a
 simple [setup](https://github.com/kacperbartocha/pico-badusb#setup). Additionally, it uses a similar syntax as
 [DuckyScript](https://docs.hak5.org/hak5-usb-rubber-ducky/duckyscript-tm-quick-reference), so writing the payload will
 be more intuitive for experienced Rubber Ducky users.
@@ -16,19 +16,19 @@ development process, the [CircuitPython documentation](https://docs.circuitpytho
 [Adafruit HID library](https://docs.circuitpython.org/projects/hid) was very helpful. Pico BadUSB was designed to be
 used on a base Raspberry Pi Pico board, but it should also work on Pico W, a board with wireless module. The repository
 includes a ```pico-badusb.uf2``` file which is used for setup purpose. It contains a build of customized
-```CircuitPython 8.0.0``` with own packages and filesystem initialization instructions.
+```CircuitPython 8.2.0``` with own packages and filesystem initialization instructions.
 
 ## Setup
-To set everything up correctly, just hold down the Boot Select ```BOTSEL``` button while connecting the ```micro USB```
+To set up everything correctly, just hold down the Boot Select ```BOTSEL``` button while connecting the ```micro USB```
 cable to the microcontroller. After a while, the mounted media should appear in the system, to which you just need to
 drag and drop the file ```pico-badusb.uf2```, and then wait a moment. If the board has been used before, it may be
 necessary to [reset](https://github.com/kacperbartocha/pico-badusb#reset) the Flash memory.
 
 ### Installation in steps:
-0. [Reset Flash](https://github.com/kacperbartocha/pico-badusb#reset) memory if you used the device before
+0. [Reset Flash](https://github.com/kacperbartocha/pico-badusb#reset) memory if you have used the device before
 1. Hold down the ```BOOTSEL``` button while connecting the ```micro USB``` cable
 2. Drag and drop the file ```pico-badusb.uf2``` onto the media
-3. Wait for the media to be remounted, which will contain the files:
+3. Wait for the media to be remounted with the following files:
     * ```boot.py```
     * ```boot_out.txt```
     * ```main.py```

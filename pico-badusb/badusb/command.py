@@ -74,7 +74,7 @@ class Command:
                     command = self._arguments.pop(0).lower()
                     
                     if hasattr(Command, command):
-                        self._string = self._string[len(command):]
+                        self._string = self._string[len(command) + 1:]
                         
                         try:       
                             getattr(Command, command)(self)
