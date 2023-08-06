@@ -57,7 +57,7 @@ class Command:
     # Turns on/off the onboard diode
     def led(self) -> None:
         if len(self._arguments) > 0:
-            if self._arguments[0] == "ON":
+            if self._arguments[0].lower() == "on":
                 self._led.value = True
                 
             else:
