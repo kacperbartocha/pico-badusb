@@ -1,97 +1,86 @@
 # Raspberry Pi Pico BadUSB
+Pico BadUSB is a simple implementation of the [BadUSB](https://en.wikipedia.org/wiki/BadUSB) idea. The features it has will certainly prove themselves in most of the less and more demanding tasks. What characterizes Pico BadUSB is a simple [setup](https://github.com/kacperbartocha/pico-badusb#setup). Additionally, it uses a similar syntax as [DuckyScript](https://docs.hak5.org/hak5-usb-rubber-ducky/duckyscript-tm-quick-reference), so writing the payload will be more intuitive for experienced Rubber Ducky users.
 
-Pico BadUSB is a simple implementation of the [BadUSB](https://en.wikipedia.org/wiki/BadUSB) idea. The features it has
-will certainly prove themselves in most of less and more demanding tasks. What characterizes Pico BadUSB is a
-simple [setup](https://github.com/kacperbartocha/pico-badusb#setup). Additionally, it uses a similar syntax as
-[DuckyScript](https://docs.hak5.org/hak5-usb-rubber-ducky/duckyscript-tm-quick-reference), so writing the payload will
-be more intuitive for experienced Rubber Ducky users.
-
-If you want to learn more about the Raspberry Pi Pico, reach out to the 
-[documentation](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-python-sdk.pdf) or visit the 
-[website](https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico).
+If you want to learn more about the Raspberry Pi Pico, refer to the [documentation](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-python-sdk.pdf) or visit the [website](https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico).
 
 ## Overview
-The program was created with a view to automating tasks by performing previously prepared payloads. During the
-development process, the [CircuitPython documentation](https://docs.circuitpython.org) and the 
-[Adafruit HID library](https://docs.circuitpython.org/projects/hid) was very helpful. Pico BadUSB was designed to be
-used on a base Raspberry Pi Pico board, but it should also work on Pico W, a board with wireless module. The repository
-includes a ```pico-badusb.uf2``` file which is used for setup purpose. It contains a build of customized
-```CircuitPython 8.2.0``` with own packages and filesystem initialization instructions.
+The program was created to emulate USB devices, particularly keyboards, for the purpose of automating tasks by executing prepared payloads. Pico BadUSB was designed for use with Raspberry Pi Pico boards, such as the Pico, Pico W and Pico 2, but the program should also work on most boards that support CircuitPython. The ```Pico BadUSB v2.0.0``` release includes ```uf2``` files, which are used for setup purposes. They contain a build of customized ```CircuitPython 9.2.0``` with custom packages and filesystem initialization instructions for selected keyboard layouts such as ```QWERTY```, ```QWERTZ``` and ```AZERTY```.
 
 ## Setup
-To set up everything correctly, just hold down the Boot Select ```BOTSEL``` button while connecting the ```micro USB```
-cable to the microcontroller. After a while, the mounted media should appear in the system, to which you just need to
-drag and drop the file ```pico-badusb.uf2```, and then wait a moment. If the board has been used before, it may be
-necessary to [reset](https://github.com/kacperbartocha/pico-badusb#reset) the Flash memory.
+To correctly setup the device, hold the Boot Select ```BOOTSEL``` button while plugging the ```micro USB``` cable into the microcontroller. Once the device is detected by the system, drag and drop the ```uf2``` file of your choice onto the media, e.g. ```pico-badusb.uf2``` for the default ```QWERTY``` layout. After a moment, the device will reappear in the system with all the necessary files ready to go.
 
-### Installation in steps:
-0. [Reset Flash](https://github.com/kacperbartocha/pico-badusb#reset) memory if you have used the device before
-1. Hold down the ```BOOTSEL``` button while connecting the ```micro USB``` cable
+If the board has been used before, it may be necessary to [reset](https://github.com/kacperbartocha/pico-badusb#reset-flash) the device's Flash memory.
+
+### Installation steps
+0. [Reset Flash](https://github.com/kacperbartocha/pico-badusb#reset-flash) memory if you have used the device before
+1. Hold down the ```BOOTSEL``` button while plugging in the ```micro USB``` cable
 2. Drag and drop the file ```pico-badusb.uf2``` onto the media
-3. Wait for the media to be remounted with the following files:
+3. Wait for the drive to remount with the following files:
     * ```boot.py```
     * ```boot_out.txt```
     * ```main.py```
     * ```payload.txt```
+    * ```license.txt```
 
-If you run into a problem at some point, or if the ```pico-badusb.uf2``` file doesn't work, the source code is available
-in the [pico-badusb directory](https://github.com/kacperbartocha/pico-badusb/tree/main/pico-badusb). To run the program,
-prepare the board preferably using [Thonny IDE](https://thonny.org) or yourself to work with ```CircuitPython``` in any
-version. Then move the ```boot.py```, ```main.py``` and ```payload.txt``` files to the root directory ```/```, and the
-```badusb``` directory move to the ```lib``` subdirectory on the Pico media.
+If you encounter a problem or if the selected ```uf2``` file doesn't work, the source code is available in the [pico-badusb directory](https://github.com/kacperbartocha/pico-badusb/tree/main/pico-badusb). To run the program, prepare the board using [Thonny IDE](https://thonny.org) or your own work environment with CircuitPython. Then move the ```boot.py```, ```main.py```, and ```payload.txt``` files to the root directory ```/```, and move the ```badusb``` directory to the ```lib``` subdirectory on the Raspberry Pi Pico drive.
+
+### UF2 files
+Pico BadUSB supports both the standard ```QWERTY``` keyboard layout and less common layouts like ```QWERTZ``` and ```AZERTY```. Due to this variety, the table below contains the ```uf2``` files for deployment on Raspberry Pi Pico boards.
+
+| Board  | Layout       | File                                                                                                                        | MD5                                    |
+|:-------|:-------------|:----------------------------------------------------------------------------------------------------------------------------|:---------------------------------------|
+| Pico   | ```QWERTY``` | [pico-badusb.uf2](https://github.com/kacperbartocha/pico-badusb/releases/download/v2.0.0/pico-badusb.uf2)                   | ```78bd80bac2f451fd87a586460f52350c``` |
+| Pico W | ```QWERTY``` | [pico-badusb-w.uf2](https://github.com/kacperbartocha/pico-badusb/releases/download/v2.0.0/pico-badusb-w.uf2)               | ```e53cef1f5bb97ca39ab976239854ada4``` |
+| Pico 2 | ```QWERTY``` | [pico-badusb-2.uf2](https://github.com/kacperbartocha/pico-badusb/releases/download/v2.0.0/pico-badusb-2.uf2)               | ```a8b9f56ab1c26579a7f5551b57accdbe``` |
+| Pico   | ```QWERTZ``` | [pico-badusb-qwertz.uf2](https://github.com/kacperbartocha/pico-badusb/releases/download/v2.0.0/pico-badusb-qwertz.uf2)     | ```662ccbcb6c9eab3b41ba6fa43aac6bd9``` |
+| Pico W | ```QWERTZ``` | [pico-badusb-w-qwertz.uf2](https://github.com/kacperbartocha/pico-badusb/releases/download/v2.0.0/pico-badusb-w-qwertz.uf2) | ```2f4a04d8c68941d56648ab97785c09c2``` |
+| Pico 2 | ```QWERTZ``` | [pico-badusb-2-qwertz.uf2](https://github.com/kacperbartocha/pico-badusb/releases/download/v2.0.0/pico-badusb-2-qwertz.uf2) | ```06263d2c851b2064a6e51800b1b4ab1a``` |
+| Pico   | ```AZERTY``` | [pico-badusb-azerty.uf2](https://github.com/kacperbartocha/pico-badusb/releases/download/v2.0.0/pico-badusb-azerty.uf2)     | ```bca8af6048141ccb382e4824c4049ec8``` |
+| Pico W | ```AZERTY``` | [pico-badusb-w-azerty.uf2](https://github.com/kacperbartocha/pico-badusb/releases/download/v2.0.0/pico-badusb-w-azerty.uf2) | ```99e63c5cd282ca5c87080b8d2f6e3748``` |
+| Pico 2 | ```AZERTY``` | [pico-badusb-2-azerty.uf2](https://github.com/kacperbartocha/pico-badusb/releases/download/v2.0.0/pico-badusb-2-azerty.uf2) | ```aafad906286b0210efab990281b2deb5``` |
+
+### Reset Flash
+In order to reset the flash memory of the device, simply hold down the ```BOOTSEL``` button while plugging in the ```micro USB``` cable. Then, drag and drop the file ```flash_nuke.uf2``` onto the storage. The file can be downloaded from the Raspberry Pi [website](https://datasheets.raspberrypi.com/soft/flash_nuke.uf2). If you don't see mass memory, make sure you removed the jumper link between pin ```GP1``` and ```GND```.
 
 ## Manual
-The whole program is based on the content of the file ```payload.txt```, or another depending on whether you changed the
-path to the file in ```main.py```. The syntax should follow certain rules to execute correctly. In theory, the program
-will not stop when it detects a syntax error, but it will ignore the given code fragment, so make sure that the syntax
-is correct. Each time you save the ```payload.txt``` file, its content will be automatically executed, so quickly remove
-the medium if you do not want to run the instructions on your computer.
+The entire program is based on the content of the ```payload.txt``` file, or another file, depending on whether you changed the path to the file in ```main.py```. The syntax must follow certain rules to execute correctly. In theory, the program will not stop when it detects a syntax error, instead, it will ignore the problematic code fragment, so make sure that the syntax is correct. Each time you save the ```payload.txt``` file, its content will be automatically executed, so quickly remove the medium if you do not want to run the instructions on your computer or enable [development mode](https://github.com/kacperbartocha/pico-badusb#development).
 
 ### Commands
-Compared to DuckyScript, Pico BadUSB's syntax is significantly simplified, leaving only elementary functions. Another
-difference is the appearance of the keyword ```PRESS``` and ```HOTKEY``` which are required before using keys like
-```CONTROL```, ```ALT``` or ```DELETE``` and their combinations. Syntactically incorrect elements will be skipped but
-will not interfere with the execution of the program. Keywords such as 
-[commands](https://github.com/kacperbartocha/pico-badusb#commands) or
-[keycodes](https://github.com/kacperbartocha/pico-badusb#keycodes) can be written with any combination of lowercase and
-uppercase letters. 
+Compared to DuckyScript, Pico BadUSB's syntax is significantly simplified, leaving only basic functions. Another difference is the inclusion of the keywords ```PRESS``` and ```HOTKEY```, which are required before using keys like ```CONTROL```, ```ALT```, or ```DELETE```, as well as their combinations. Syntactically incorrect elements will be skipped but will not interfere with the execution of the program. Keywords such as [commands](https://github.com/kacperbartocha/pico-badusb#commands) and [keycodes](https://github.com/kacperbartocha/pico-badusb#keycodes) can be written with any combination of lowercase and uppercase letters.
 
-| Command | Description                         | Example                       |
-|:--------|:------------------------------------|:------------------------------|
-| REM     | Adds a comment                      | ```REM This is a comment```   |
-| PRESS   | Alias to ```HOTKEY``` command       | ```PRESS ENTER```             |
-| HOTKEY  | Enters key combination              | ```HOTKEY GUI R```            |
-| STRING  | Enters a string of ASCII characters | ```STRING This is a string``` |
-| LED     | Turns on/off the onboard diode      | ```LED OFF ```                |
+| Command   | Description                         | Example                       |
+|:----------|:------------------------------------|:------------------------------|
+| REM       | Adds a comment                      | ```REM This is a comment```   |
+| DELAY     | Adds a delay                        | ```DELAY 500```               |
+| TYPESPEED | Changes the typing speed            | ```TYPESPEED 100```           |
+| PRESS     | Alias to ```HOTKEY``` command       | ```PRESS ENTER```             |
+| HOTKEY    | Enters key combination              | ```HOTKEY GUI R```            |
+| STRING    | Enters a string of ASCII characters | ```STRING This is a string``` |
+| LED       | Turns on/off the onboard diode      | ```LED ON ```                 |
 
 ##### REM
-This command is discretionary, in fact, to get the effect of a comment, it is enough to type anything at the beginning
-of the line that is not a keyword of the command ```PRESS```, ```HOTKEY```, ```STRING``` or ```LED```. After the fixed
-word, enter the comment content.
+This command is discretionary, in fact, to achieve the effect of a comment, it is sufficient to type anything at the beginning of the line that is not a keyword of the commands ```DELAY```, ```TYPESPEED```, ```PRESS```, ```HOTKEY```, ```STRING```, or ```LED```. After the fixed word, enter the content of the comment.
+
+##### DELAY
+The ```DELAY``` command defines the delay in milliseconds between individual payload instructions. If no value is defined, the default delay value of ```500``` milliseconds will be used.
+
+##### TYPESPEED
+```TYPESPEED``` defines the delay in milliseconds between the characters entered from the string sequence within the ```STRING``` command. The default value is ```0```, which means no delay.
 
 ##### PRESS
-After the keyword ```PRESS``` put up to 6 keys, they can be provided as keycodes as well as characters from the ASCII 
-table. The keys are pressed in the order in which they were entered and simultaneously released. The ```PRESS``` command
-is an alias for the ```HOTKEY``` command.
+After the keyword ```PRESS```, you can specify up to 6 keys, which can be provided as keycodes or as characters from the ASCII table. The keys are pressed in the order in which they are entered and released simultaneously. The ```PRESS``` command is an alias for the ```HOTKEY``` command.
 
 ##### HOTKEY
-After the keyword ```HOTKEY``` put up to 6 keys, they can be provided as keycodes as well as characters from the ASCII 
-table. The keys are pressed in the order in which they were entered and simultaneously released.
+After the keyword ```PRESS```, you can specify up to 6 keys, which can be provided as keycodes or as characters from the ASCII table. The keys are pressed in the order in which they are entered and released simultaneously.
 
 ##### STRING
-The ```STRING``` command converts the following string from the ASCII table (except ```\n``` and ```\r```) into a string
-of keystrokes. Make sure that when writing the payload you do not include characters from outside the ASCII table,
-otherwise they will be ignored.
+The ```STRING``` command converts the following string from the ASCII table (except for ```\n``` and ```\r```) into a series of keystrokes. Make sure that when writing the payload, you do not include characters outside the ASCII table, otherwise, they will be ignored.
 
 ##### LED
-The comment allows you to enable or disable the built-in LED. The command ```LED ON``` is used to turn on the diode, and
-```LED OFF``` to turn it off. The keyword ```OFF``` is discretionary, the LED will go off if there is no additional
-value or if a value other than ```ON``` is entered.
+The command allows you to enable or disable the built-in LED. The command ```LED ON``` is used to turn on the diode, and ```LED OFF``` is used to turn it off. The keyword ```OFF``` is discretionary, the LED will turn off if there is no additional value or if a value other than ```ON``` is entered.
 
 ### Keycodes
-Keycodes allow you to refer to a key that cannot be represented as an ASCII character. Their use is only allowed in
-conjunction with the keyword ```PRESS``` or ```HOTKEY``` at the beginning of a line. For formality, they are written in
-capital letters, but the program will interpret them correctly even if they are written in lower case. 
+Keycodes allow you to refer to a key that cannot be represented as an ASCII character. Their use is only permitted in conjunction with the keywords ```PRESS``` or ```HOTKEY``` at the beginning of a line. For formality, they are written in capital letters, but the program will interpret them correctly even if they are written in lowercase.
 
 #### Cursor Keys
 ```UP``` ```DOWN``` ```LEFT``` ```RIGHT```\
@@ -106,17 +95,15 @@ capital letters, but the program will interpret them correctly even if they are 
 
 #### Modifier Keys
 ```SHIFT``` ```CONTROL``` ```CTRL``` ```ALT```\
-```GUI``` ```COMMAND``` ```WINDOWS```
+```ALTGR``` ```GUI``` ```COMMAND``` ```WINDOWS```
 
 #### Lock Keys
 ```CAPSLOCK``` ```NUMLOCK``` ```SCROLLOCK```
 
 ### Example
-The following example shows the full functionality of Pico BadUSB. First, it launches the built-in LED, then using
-[Windows](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands) features,
-we run the defined link in the default browser. Finally, the LED turns off.
+The following example demonstrates the full functionality of Pico BadUSB. First, it activates the built-in LED, then, using [Windows](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/windows-commands) features, we open the defined link in the default browser. Finally, the LED turns off.
 
-```bash
+```text
 REM This is an example of a payload file
 DELAY 1000
 LED ON
@@ -130,14 +117,13 @@ PRESS ENTER
 LED OFF
 ```
 
-## Storage
-In order to hide the device actions, the mass memory can be turned off by shorting the ```GP1``` pin to the ground 
-```GND```. It is recommended to connect the pin ```GP1``` in position ```2``` with the pin ```GND``` in position ```3```
-, referring to the markings on the Raspberry Pi Pico
-[pinout diagram](https://datasheets.raspberrypi.com/pico/Pico-R3-A4-Pinout.pdf).
+## Other features
+The functionality of the Pico BadUSB tool can be extended by creating a physical connection between individual pins as well as by making custom changes within the module's source code.
 
-If you encounter a problem, and you are sure that you have jumpers connected properly, make sure that a file named
-```boot.py``` is available in storage with the following code.
+### Storage
+In order to hide the visibility of the storage, the media memory can be turned off by shorting ```GP1``` pin to ground ```GND```. It is recommended to connect ```GP1``` pin in position ```2``` with ```GND``` pin in position ```3```, referring to the markings on the Raspberry Pi Pico [pinout diagram](https://datasheets.raspberrypi.com/pico/Pico-R3-A4-Pinout.pdf).
+
+If you encounter a problem and are sure that you have the jumpers connected properly, make sure that a file named ```boot.py``` is available in storage with the following code.
 
 ```python
 from badusb.boot import Boot
@@ -147,8 +133,17 @@ if __name__ == "__main__":
     Boot()
 ```
 
-## Reset
-In order to reset the flash memory of the device, simply hold down the ```BOOTSEL``` button while plugging in the
-```micro USB``` cable. Then drag and drop the file ```flash_nuke.uf2``` to the storage. The file can be downloaded from
-the Raspberry Pi [website](https://datasheets.raspberrypi.com/soft/flash_nuke.uf2). If you don't see mass memory, make
-sure you removed the jumper link between pin ```GP1``` and ```GND```.
+### Development
+Since the contents of the ```payload.txt``` file are executed each time it is saved, writing the payload may be difficult. For this reason, the ability to stop the payload execution has been added by shorting ```GP5``` pin in position ```7``` with ```GND``` pin in position ```8```, referring to the markings on the Raspberry Pi Pico [pinout diagram](https://datasheets.raspberrypi.com/pico/Pico-R3-A4-Pinout.pdf). As long as the pins are connected, the payload will not execute. Once the jumper is removed, the device will start executing the instructions contained in the ```payload.txt``` file.
+
+If you encounter a problem and are sure that you have the jumpers connected properly, make sure that a file named ```boot.py``` is available in storage.
+
+### Layout
+By using the source code, you can freely utilize the defined layouts ```QWERTY```, ```QWERTZ```, and ```AZERTY``` by modifying the contents of the file ```keyboard.py```. To make changes, you must first import the appropriate layout with ```from .layouts import QWERTY```, and then assign its values to the ```ASCII``` variable ```ASCII = QWERTY``` within the ```Keyboard``` class.
+
+## References
+\[1\] [Raspberry Pi Ltd. (2024). Raspberry Pi Pico Python SDK](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-python-sdk.pdf)\
+\[2\] [Raspberry Pi Ltd. (2024). Getting started with Raspberry Pi Pico](https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico)\
+\[3\] [Raspberry Pi Ltd. (2024). Raspberry Pi Pico Pinout](https://datasheets.raspberrypi.com/pico/Pico-R3-A4-Pinout.pdf)\
+\[4\] [MicroPython & CircuitPython contributors. (2024). Adafruit CircuitPython](https://docs.circuitpython.org)\
+\[5\] [Scott Shawcroft. (2024). Adafruit HID library](https://docs.circuitpython.org/projects/hid)

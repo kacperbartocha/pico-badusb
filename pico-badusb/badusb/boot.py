@@ -4,9 +4,11 @@ from storage import disable_usb_drive
 
 # Boot handler class
 class Boot:
+    
+    # Initial setup
     def __init__(self) -> None:
-        control = DigitalInOut(GP1)
-        control.switch_to_input(pull=Pull.UP)
+        gp1 = DigitalInOut(GP1)
+        gp1.switch_to_input(pull=Pull.UP)
         
-        if not control.value:
+        if not gp1.value:
             disable_usb_drive()
