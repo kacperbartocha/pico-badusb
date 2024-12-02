@@ -2,6 +2,7 @@ from time import sleep
 from board import LED, GP5
 from digitalio import DigitalInOut, Direction, Pull
 from .keyboard import Keyboard
+import storage
 
 # Command handler class
 class Command:
@@ -77,19 +78,23 @@ class Command:
     
     # Executes instructions and validates them
     def execute(self, path: str) -> None:
-        with open(path, "r", encoding="utf-8") as payload:
-            for string in payload.readlines():
-                self.__string = string.replace("\n", "").replace("\r", "")
+        with open(path, "r", encoding="utf-8") as f:
+            payload = f.readlines()
+        storage.umount('/')
+        for string in payload:
+            self.__string = string.rstrip('\n\r')
+            if self.__string.startswith('STRING'):
+                self.__arguments = ['STRING']
+            else:
                 self.__arguments = self.__string.split(" ")
+            if len(self.__arguments) > 0:
+                command = self.__arguments.pop(0).lower()
                 
-                if len(self.__arguments) > 0:
-                    command = self.__arguments.pop(0).lower()
+                if hasattr(Command, command):
+                    self.__string = self.__string[len(command) + 1:]
                     
-                    if hasattr(Command, command):
-                        self.__string = self.__string[len(command) + 1:]
-                        
-                        try:       
-                            getattr(Command, command)(self)
-                        
-                        except Exception as e:
-                            self.__keyboard.release()
+                    try:       
+                        getattr(Command, command)(self)
+                    
+                    except Exception as e:
+                        self.__keyboard.release()
