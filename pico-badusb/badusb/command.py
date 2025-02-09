@@ -78,7 +78,7 @@ class Command:
     # Executes instructions and validates them
     def execute(self, path: str) -> None:
         with open(path, "r", encoding="utf-8") as payload:
-            for string in payload.readlines():
+            for string in payload:
                 self.__string = string.replace("\n", "").replace("\r", "")
                 self.__arguments = self.__string.split(" ")
                 
